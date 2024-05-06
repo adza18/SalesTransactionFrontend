@@ -1,0 +1,10 @@
+
+
+@if(message !=="")
+{
+<div class="alert alert-success" role="alert" [class]="{'alert-success': type === 'success', 'alert-danger': type === 'danger'}">
+    <p>{{ message }}</p>
+
+</div>
+}
+ 

@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" >
+          @if (form.get('name')?.hasError('name') && form.get('name')?.dirty || form.get('name')?.touched) {
+            <mat-error>Name is required</mat-error>
+          }    
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber">
+          @if (form.get('phoneNumber')?.hasError('pattern') && form.get('phoneNumber')?.dirty ) {
+            <mat-error>  Please enter a valid phone number</mat-error>
+          }
+          @if (form.get('phoneNumber')?.hasError('required') && form.get('phoneNumber')?.dirty || form.get('phoneNumber')?.touched) {
+            <mat-error> Phone Number is required</mat-error>
+          }
+         
+          
+     
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          @if (form.get('email')?.hasError('email') && form.get('email')?.dirty ) {
+            <mat-error>  Please enter a valid email</mat-error>
+          }
+          @if (form.get('email')?.hasError('required') && form.get('email')?.dirty || form.get('email')?.touched) {
+            <mat-error> Email Number is required</mat-error>
+          }
+         
+          
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3"> 
+    <div class="col-md-12">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">{{ isNew ? 'Save' : 'Update' }}</button>
+    </div>
+  </div>
+</form>

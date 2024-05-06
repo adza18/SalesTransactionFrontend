@@ -1,0 +1,56 @@
+
+<h3 class="heading-custom">Products</h3>
+<div class="pb-3 pt-1">
+    <button class="btn btn-primary-custom" (click)="addProduct(modalAdd)">Add Product</button>
+  
+  </div>
+  
+  <app-toaster [message]="toasterMessage" [type]="messageType"></app-toaster>
+  
+  <ng-template #modalAdd>
+        <div class="modal-header">
+          <h2 class="modal-title">{{title}}</h2>
+          <button type="button" class="btn-close" (click)="close()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-product-form [isNew]="isNew" (outputEvent)="updateData($event)"></app-product-form>
+        </div>
+        
+      </ng-template>
+      <ng-template #modalEdit>
+        <div class="modal-header">
+          <h2 class="modal-title">{{title}}</h2>
+          <button type="button" class="btn-close" (click)="close()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-product-form [isNew]="isNew" [editData]="editData" (outputEvent)="updateData($event)"></app-product-form>
+        </div>
+        
+      </ng-template>
+  <kendo-grid [data]="products" class="custom-grid"   [pageable]="true"
+  [sortable]="true" [pageSize]="pagesize"
+  [skip]="skip">
+   
+   
+  <kendo-grid-column title="S.No" [width]="50">
+    <ng-template kendoGridCellTemplate let-rowIndex="rowIndex"  >
+      {{rowIndex+1}}
+   </ng-template>
+  </kendo-grid-column>
+    <kendo-grid-column field="name" title="Product Name" [width]="100">
+    </kendo-grid-column>
+    <kendo-grid-column field="quantity" title="Quantity" [width]="100">
+    </kendo-grid-column>
+    
+    <kendo-grid-column field="price" title="Price" [width]="100">
+    </kendo-grid-column>
+    
+    
+    <kendo-grid-column title="Actions" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <button class="btn btn-dark" (click)="editProduct(dataItem,modalEdit)">Edit</button>
+        </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+  
+  

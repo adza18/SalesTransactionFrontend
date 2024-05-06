@@ -1,0 +1,128 @@
+<h3 class="heading-custom">Sales Transaction</h3>
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="d-flex row justify-content-between ">
+          <div class="col-md-3">
+              <mat-form-field class="width-25">
+                <mat-label>Select Customer</mat-label>
+                <mat-select formControlName="customerId" required>
+                  @for (customer of customerList; track customer) {
+                  <mat-option [value]="customer.id">{{
+                    customer.customerName
+                  }}</mat-option>
+                  }
+                </mat-select>
+                @if (form.get('customerId')?.hasError('required') &&
+                form.get('customerId')?.dirty || form.get('customerId')?.touched)
+                {
+                <mat-error>CustomerId is required</mat-error>
+                }
+              </mat-form-field>
+          </div>
+  
+          <div class="col-md-3">
+              <mat-form-field class="width-25">
+                <mat-label>Select Product</mat-label>
+                <mat-select formControlName="productId" required>
+                  @for (product of productList; track product) {
+                  <mat-option [value]="product.id">{{ product.name }}</mat-option>
+                  }
+                </mat-select>
+                @if (form.get('productId')?.hasError('required') &&
+                form.get('productId')?.dirty || form.get('productId')?.touched) {
+                <mat-error>ProductId is required</mat-error>
+                }
+              </mat-form-field>
+          </div>
+          <div class="col-md-3">
+              <mat-form-field appearance="fill" class="width-25">
+                <mat-label>Quantity</mat-label>
+                <input matInput formControlName="quantity" type="number" />
+  
+                @if (form.get('quantity')?.hasError('required') &&
+                form.get('quantity')?.dirty || form.get('quantity')?.touched) {
+                <mat-error> Quantity is required</mat-error>
+                } @if (form.get('quantity')?.hasError('min') &&
+                form.get('quantity')?.dirty || form.get('quantity')?.touched) {
+                <mat-error> Quantity must be greater than 1</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          <div class="col-md-2">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- <div class="pt-2 pb-1">
+    <button class="btn btn-dark w-100" (click)="generateInvoice()" [disabled]="selectedIds.length <= 0">Generate Invoice</button>
+  </div> -->
+
+  <div>
+    <button class="btn btn-dark w-100" (click)="generateInvoicePdf()" [disabled]="selectedIds.length <= 0">Generate Invoice</button>
+  </div>
+
+
+<div class="mt-2">
+    <kendo-grid [data]="salesList" class="custom-grid"   [pageable]="true"
+  [sortable]="true" [pageSize]="pagesize"
+  [skip]="skip"     [selectable]="selectableSettings" (selectionChange)="onRowSelect($event)">
+  <kendo-grid-checkbox-column [width]="40"  >
+  </kendo-grid-checkbox-column>
+
+  <kendo-grid-column title="S.No" [width]="50">
+    <ng-template kendoGridCellTemplate let-rowIndex="rowIndex"  >
+      {{rowIndex+1}}
+   </ng-template>
+  </kendo-grid-column>
+ 
+    <kendo-grid-column field="customerName" title="Customer Name" [width]="100">
+    </kendo-grid-column>
+    <kendo-grid-column field="productName" title="Product Name" [width]="100">
+    </kendo-grid-column>
+    
+    <kendo-grid-column field="quantity" title="Quantity" [width]="100">
+    </kendo-grid-column>
+    <kendo-grid-column field="rate" title="Rate" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            NPR {{ dataItem.rate }}
+        </ng-template>
+    </kendo-grid-column>
+    
+    <kendo-grid-column field="total" title="Total" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            NPR {{ dataItem.total }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="createdDate" title="Transaction Date" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem.createdDate | date:'dd/MM/yyyy' }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="hasInvoice" title="Invoice" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <ng-container *ngIf="dataItem.hasInvoice; else noInvoice">
+                <span>Invoice Generated</span>
+            </ng-container>
+            <ng-template #noInvoice>
+              <span>No Invoice Yet</span>
+
+
+                <!-- <span><button class="btn btn-dark">Generate Invoice</button></span> -->
+            </ng-template>
+        </ng-template>
+    </kendo-grid-column>
+    
+   
+  </kendo-grid>
+</div>

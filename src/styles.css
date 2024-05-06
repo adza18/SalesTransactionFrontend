@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary-color-bg: #2a304c;
+  --secondary-color-bg: #626a97;
+  --primary-color-txt: #eeaa74;
+  --secondary-color-txt: #your-secondary-color;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px; 
+    background-color: var(--primary-color-bg);
+    color:var(--primary-color-txt);
+    padding-top: 10px;
+
+
+  }
+
+
+  .bg-primary-custom{
+    background-color: var(--primary-color-bg);
+  }
+  .bg-seconday-custom{
+    background-color: var(--secondary-color-bg);
+  }
+
+  .txt-primary{
+    color:var(--primary-color-txt);
+  }
+
+  .heading-custom{
+    color:var(--primary-color-txt);
+    font-weight: bold;
+    font-size: 24px;
+
+  }
+
+  .btn-primary-custom{
+    background-color: var(--primary-color-bg);
+    color:var(--primary-color-txt);
+
+
+  }
+  .full-width {
+    width: 100%;
+  }
+
+  .btn-primary-custom:hover {
+    background-color: var(--primary-color-txt); 
+    color: var(--primary-color-bg);
+}
+
+  .wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr auto; 
+    min-height: 100vh;
+    background-color: var(--bg-secondary-custom);
+}
+
+
+  

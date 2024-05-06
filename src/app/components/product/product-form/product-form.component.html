@@ -1,0 +1,68 @@
+<p>product-form works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" >
+            @if (form.get('name')?.hasError('required') && form.get('name')?.dirty || form.get('name')?.touched) {
+              <mat-error>Name is required</mat-error>
+            }
+         
+       
+            
+            
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Quantity</mat-label>
+            <input matInput formControlName="quantity" type="number">
+         
+            @if (form.get('quantity')?.hasError('required') && form.get('quantity')?.dirty || form.get('quantity')?.touched) {
+              <mat-error> Quantity is required</mat-error>
+            }
+            @if (form.get('quantity')?.hasError('min') && form.get('quantity')?.dirty || form.get('quantity')?.touched) {
+                <mat-error> Quantity must be greater than 1</mat-error>
+              }
+           
+            
+       
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Price (NPR)</mat-label>
+            <input matInput formControlName="price" type="number">
+         
+            @if (form.get('price')?.hasError('required') && form.get('price')?.dirty || form.get('price')?.touched) {
+              <mat-error> Price is required</mat-error>
+            }
+           
+            @if (form.get('price')?.hasError('min') && form.get('price')?.dirty || form.get('price')?.touched) {
+                <mat-error> Price must be greater than 10</mat-error>
+              }
+            
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mt-3"> 
+      <div class="col-md-12">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">{{ isNew ? 'Save' : 'Update' }}</button>
+      </div>
+    </div>
+  </form>
+  
